@@ -11,24 +11,27 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.get('/setcookie', function (req, res) {
-	var cookie = req.cookies['Gaurav'];
-	//If cookie is not set, set it or ignore otherwise
-	if(cookie === undefined) {
-		res.cookie('Gaurav', '23', {maxAge: 1000*60*15});
-		res.send("Cookie set successfully");
+	var cookieName = req.cookies['name'];
+	var cookieAge = req.cookies['age'];
+	//If cookies are not set, set them or ignore otherwise
+	if(cookieName === undefined || cookieAge === undefined) {
+		res.cookie('name', 'Gaurav', {maxAge: 1000*60*15});
+		res.cookie('age', '23', {maxAge: 1000*60*15});
+		res.send("Cookies set successfully");
 	}
 	else
-		res.send("Cookie already set");
+		res.send("Cookies already set");
 	
 });
 
 app.get('/getcookies', function (req, res) {
-	var cookie = req.cookies['Gaurav'];
-	if(cookie === undefined) {
-		res.send("Cookie not set");
+	var cookieName = req.cookies['name'];
+	var cookieAge = req.cookies['age'];
+	if(cookieName === undefined && cookieAge === undefined) {
+		res.send("Cookies not set");
 	}
 	else {
-		res.send("Cookie found  : "+JSON.stringify(req.cookies));
+		res.send("Cookie(s) found  : "+JSON.stringify(req.cookies));
 	}
 });
 
